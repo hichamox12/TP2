@@ -34,7 +34,55 @@ for (int i=0;i<100;i++){
         System.out.println("total elements:"+products.getTotalElements());
         System.out.println(" num pages :"+products.getNumber());
         List<Product>content =products.getContent();
-        content.forEach(e->{
+         List<Product> byPrix=productRepository.findProductByPrix(12369.87);
+         List<Product> productList=productRepository.chercherProduits(12369.87,"%h%");
+
+
+        Product newProduct = new Product(null, "TOSHIBA",   15000.00, 10);
+        productRepository.save(newProduct);
+
+        List<Product> productList1 = productRepository.chercherProduits(12369.87, "%h%");
+        System.out.println("Products found:");
+        productList1.forEach(product -> {
+            System.out.println("ID: " + product.getId());
+            System.out.println("Name: " + product.getName());
+            System.out.println("Price: " + product.getPrix());
+            System.out.println("Quantity: " + product.getQte());
+        });
+
+
+        newProduct.setName("TOSHIBA");
+        newProduct.setPrix(20000.69);
+        Product updatedProduct = productRepository.mettreAJourProduit(newProduct);
+
+        System.out.println("Product updated to: " + updatedProduct.getName());
+
+        updatedProduct = productRepository.findById(newProduct.getId()).orElse(null);
+        if (updatedProduct != null) {
+            System.out.println("Updated Product Details:");
+            System.out.println("ID: " + updatedProduct.getId());
+            System.out.println("Name: " + updatedProduct.getName());
+            System.out.println("Price: " + updatedProduct.getPrix());
+            System.out.println("Quantity: " + updatedProduct.getQte());
+        }
+
+       productRepository.deleteById(newProduct.getId());
+        System.out.println("Product deleted: ID " + newProduct.getId());
+
+        if (!productRepository.findById(newProduct.getId()).isPresent()) {
+            System.out.println("Product successfully deleted.");
+        }
+
+
+
+
+
+
+
+
+
+
+        byPrix.forEach(e->{
             System.out.println("================");
             System.out.println(e.getId());
             System.out.println(e.getName());
@@ -42,6 +90,8 @@ for (int i=0;i<100;i++){
             System.out.println(e.getQte());
 
         });
+
+
         System.out.println("********************");
         Product product=productRepository.findById(1L).orElse(null);
         if (product!=null){
@@ -49,6 +99,7 @@ for (int i=0;i<100;i++){
             System.out.println(product.getPrix());
             System.out.println(product.getQte());
         }
-
+        productRepository.deleteById(1L);
+        productRepository.save(product);
     }
 }

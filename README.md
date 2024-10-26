@@ -8,3 +8,5 @@
 <img src="CAPTURE/ajouter 100 produits.png">
 <h1>afichage des produits avec la pagination</h1>
 <img src="CAPTURE/afichage des produits avec les pages et les elments.png">
+<h1> Migrer de H2 Database vers MySQL</h1>
+<img src="CAPTURE/database.png">
